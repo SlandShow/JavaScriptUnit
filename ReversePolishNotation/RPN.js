@@ -14,7 +14,7 @@ var output = ""
 var stack = []
 
 function gotOper(curr, p) {
-    while(!stack.length == 0) {
+    while (!stack.length == 0) {
         var opTop = stack.pop()
         var oldP = -1
         if (opTop === "+" || opTop == "-") oldP = 1
@@ -40,26 +40,26 @@ function postfix(s) {
             else output += " " + aol[i]
         }
     }
-    while(!stack.length == 0) output += " " + stack.pop();
+    while (!stack.length == 0) output += " " + stack.pop();
 }
 
 // Calculate via postfix notation
-function rpn( input ) {
-    var ar = input.split( /\s+/ ), st = [], token;
-    while( token = ar.shift() ) {
-        if ( token == +token ) {
-            st.push( token );
+function rpn(input) {
+    var ar = input.split(/\s+/), st = [], token;
+    while (token = ar.shift()) {
+        if (token == +token) {
+            st.push(token);
         } else {
             var n2 = st.pop(), n1 = st.pop();
             var re = /^[\+\-\/\*]$/;
-            if( n1 != +n1 || n2 != +n2 || !re.test( token ) ) {
-                throw new Error( 'Invalid expression: ' + input );
+            if (n1 != +n1 || n2 != +n2 || !re.test(token)) {
+                throw new Error('Invalid expression: ' + input);
             }
-            st.push( eval( n1 + token + ' ' + n2 ) );
+            st.push(eval(n1 + token + ' ' + n2));
         }
     }
-    if( st.length !== 1 ) {
-        throw new Error( 'Invalid expression: ' + input );
+    if (st.length !== 1) {
+        throw new Error('Invalid expression: ' + input);
     }
     return st.pop();
 }
