@@ -2,11 +2,6 @@
 var output = "";
 var stack = [];
 
-
-String.prototype.isNumeric = function() {
-    return !isNaN( +this );
-}
-
 function gotOper(curr, p) {
     while (!stack.length == 0) {
         var opTop = stack.pop();
@@ -21,7 +16,7 @@ function gotOper(curr, p) {
     stack.push(curr);
 }
 
-// From infix to postfix notation
+// Convert from infix to postfix notation
 function postfix(s) {
     var aol = s.split(" ");
     var size = s.length;
@@ -58,84 +53,113 @@ function rpn(input) {
     return st.pop();
 }
 
-
+// Write infix string on calculater display
 function write(symbol) {
     var last = document.getElementById('output').outerText;
     if (last == 0 && last != "0.") {
+        tmpStr = symbol;
         document.getElementById('output').innerText = symbol;
-    } else if (symbol == "+" || symbol == "-" || symbol == "*") {
+    } else if (symbol == "+" || symbol == "-" || symbol == "*" || symbol == "/") {
+        elements.push(tmpStr);
+        tmpStr = "";
+        elements.push(symbol);
+        // '/0' null-byte mark make calculater output more beatiful
         document.getElementById('output').innerText = last + " \0" + symbol + " \0";
     } else {
+        tmpStr += symbol;
         document.getElementById('output').innerText = last + symbol;
     }
 }
+
 function one() {
     write("1");
 }
+
 function two() {
     write("2");
 }
+
 function three() {
     write("3");
 }
+
 function four() {
     write("4");
 }
+
 function five() {
     write("5");
 }
+
 function six() {
     write("6");
 }
+
 function seven() {
     write("7");
 }
+
 function eight() {
     write("8");
 }
+
 function nine() {
     write("9");
 }
+
 function zero() {
     write("0");
 }
+
 function plus() {
     write('+');
 }
+
 function minus() {
     write('-');
 }
+
 function mult() {
     write('*');
 }
+
 function div() {
     write('/');
 }
+
 function sin() {
     write('sin(');
 }
+
 function cos() {
     write('cos(');
 }
+
 function tg() {
     write('tg(');
 }
+
 function ctg() {
     write('ctg(');
 }
+
 function sup() {
     write('^');
 }
+
 function sqrt() {
     write('√(');
 }
+
 function obracket() {
     write('(');
 }
+
 function cbracket() {
     write(')');
 }
-// Точка
+
+// Point sign
 function point() {
     var last = document.getElementById('output').outerText;
     if (last == 0) {
@@ -144,7 +168,7 @@ function point() {
         document.getElementById('output').innerText = last + '.';
     }
 }
-// Удалить
+// Delete
 function del() {
     var last = document.getElementById('output').outerText;
     if (last == 0) {
@@ -153,11 +177,32 @@ function del() {
     } else {
         document.getElementById('output').innerText = last.substring(0, last.length-1);
     }
+    // Clear all variables
+    output = "";
+    tmpStr = "";
+    elements = [];
 }
-// Равно
-function equal() {
-    console.log(document.getElementById("output").outerText);
-    postfix(document.getElementById("output").outerText);
-    document.getElementById("output").innerText = rpn(output.slice(1));
 
+// Equal button - calculate postfix notation and view result
+function equal() {
+    if (tmpStr != undefined) 
+        elements.push(tmpStr);
+
+    // Debug mode
+    console.log(elements)
+    var exe = "";
+
+    for (var i = 0; i < elements.length; i++)
+        exe += elements[i] + " ";
+
+    console.log(exe);
+    elements = [];
+
+    postfix(exe);
+    var result = rpn(output.slice(1));
+    if (result != 0)
+        tmpStr = result;
+
+    output = "";
+    document.getElementById("output").innerText = result;
 }
