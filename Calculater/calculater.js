@@ -53,6 +53,9 @@ function rpn(input) {
     return st.pop();
 }
 
+var tmpStr = ";
+var elements = [];
+
 // Write infix string on calculater display
 function write(symbol) {
     var last = document.getElementById('output').outerText;
