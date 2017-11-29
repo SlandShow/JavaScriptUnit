@@ -53,9 +53,8 @@ function rpn(input) {
     return st.pop();
 }
 
-var tmpStr = ";
+var tmpStr = "";
 var elements = [];
-
 // Write infix string on calculater display
 function write(symbol) {
     var last = document.getElementById('output').outerText;
@@ -73,95 +72,72 @@ function write(symbol) {
         document.getElementById('output').innerText = last + symbol;
     }
 }
-
 function one() {
     write("1");
 }
-
 function two() {
     write("2");
 }
-
 function three() {
     write("3");
 }
-
 function four() {
     write("4");
 }
-
 function five() {
     write("5");
 }
-
 function six() {
     write("6");
 }
-
 function seven() {
     write("7");
 }
-
 function eight() {
     write("8");
 }
-
 function nine() {
     write("9");
 }
-
 function zero() {
     write("0");
 }
-
 function plus() {
     write('+');
 }
-
 function minus() {
     write('-');
 }
-
 function mult() {
     write('*');
 }
-
 function div() {
     write('/');
 }
-
 function sin() {
     write('sin(');
 }
-
 function cos() {
     write('cos(');
 }
-
 function tg() {
     write('tg(');
 }
-
 function ctg() {
     write('ctg(');
 }
-
 function sup() {
     write('^');
 }
-
 function sqrt() {
     write('√(');
 }
-
 function obracket() {
     write('(');
 }
-
 function cbracket() {
     write(')');
 }
-
 // Point sign
 function point() {
     var last = document.getElementById('output').outerText;
@@ -185,27 +161,21 @@ function del() {
     tmpStr = "";
     elements = [];
 }
-
 // Equal button - calculate postfix notation and view result
 function equal() {
-    if (tmpStr != undefined) 
+    if (tmpStr != undefined)
         elements.push(tmpStr);
-
     // Debug mode
     console.log(elements)
     var exe = "";
-
     for (var i = 0; i < elements.length; i++)
         exe += elements[i] + " ";
-
     console.log(exe);
     elements = [];
-
     postfix(exe);
     var result = rpn(output.slice(1));
     if (result != 0)
         tmpStr = result;
-
     output = "";
     document.getElementById("output").innerText = result;
 }
