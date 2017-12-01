@@ -43,7 +43,44 @@ function postfix(s) {
     while (!stack.length == 0) output += " " + stack.pop();
 }
 
-// Calculate via postfix notation
+
+// Calculate via postfix notation (my own realization)
+function parse(arg) {
+    var el = "";
+    var s = [];
+    var arr = arg.split(" ");
+    var n1, n2, interAns;
+  
+    // Postfix notation iterartion
+    for (var i = 0; i < arr.length; i++) {
+        // Debug mode
+        console.log("stack: " + s);
+  		el = arr[i];
+        // If current element is number
+        if (!isNaN(parseInt(el, 10))) {
+      		s.push(parseInt(el, 10));
+      } else if (el != "") {
+            // Debug mode
+            console.log(el + " is current operator");
+      	    n2 = s.pop();
+            n1 = s.pop();
+          
+            // Make calculations
+            if (el == "+") interAns = n1 + n2;
+            else if (el == "-") interAns = n1 - n2;
+            else if (el == "*") interAns = n1 * n2;
+            else if (el == "/") interAns = n1 / n2;
+            else interAns = 0;
+          
+            s.push(interAns);
+      }
+  }
+    // Final result of all calculations
+    interAns = s.pop();
+    return interAns;
+}
+
+// Calculate via postfix notation (using eval function)
 function rpn(input) {
     var ar = input.split(/\s+/), st = [], token;
     while (token = ar.shift()) {
@@ -68,5 +105,5 @@ function rpn(input) {
 postfix(prompt());
 // Check out new postfix notation
 alert(output.slice(1));
-// Alert result
-alert(rpn(output.slice(1)));
+// Alert result 
+alert(parse(output.slice(1)));
