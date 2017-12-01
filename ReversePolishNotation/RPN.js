@@ -17,7 +17,7 @@ function gotOper(curr, p) {
     while (!stack.length == 0) {
         var opTop = stack.pop();
         var oldP = -1;
-        if (opTop === "+" || opTop == "-") oldP = 1;
+        if (opTop == "+" || opTop == "-") oldP = 1;
         else oldP = 2;
         if (oldP < p) {
             stack.push(" " + opTop);
@@ -33,10 +33,10 @@ function postfix(s) {
     var size = s.length;
     for (var i = 0; i < size; i++) {
         if (aol[i] != undefined) {
-            if (aol[i] === "+") gotOper(aol[i], 1);
-            else if (aol[i] === "-") gotOper(aol[i], 1);
-            else if (aol[i] === "*") gotOper(aol[i], 2);
-            else if (aol[i] === "/") gotOper(aol[i], 2);
+            if (aol[i] == "+") gotOper(aol[i], 1);
+            else if (aol[i] == "-") gotOper(aol[i], 1);
+            else if (aol[i] == "*") gotOper(aol[i], 2);
+            else if (aol[i] == "/") gotOper(aol[i], 2);
             else output += " " + aol[i]
         }
     }
